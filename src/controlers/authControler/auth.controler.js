@@ -61,13 +61,13 @@ class AuthControler {
     const token = jwt.sign(
       { name: userFromDb.name, email: userFromDb.email, id: userFromDb._id },
       process.env.JWT_USER_TOKEN_HASH,
-      { expiresIn: process.env.JTW_USER_TOKEN_EXPIRATION },
+      { expiresIn: process.env.JWT_USER_TOKEN_EXPIRATION },
     );
 
     const refresh_token = jwt.sign(
       { name: userFromDb.name, email: userFromDb.email, id: userFromDb._id, token },
       process.env.JWT_USER_TOKEN_HASH,
-      { expiresIn: process.env.JTW_USER_REFRESH_TOKEN_EXPIRATION },
+      { expiresIn: process.env.JWT_USER_REFRESH_TOKEN_EXPIRATION },
     );
 
     res.status(200).json({

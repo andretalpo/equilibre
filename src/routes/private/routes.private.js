@@ -35,7 +35,7 @@ router.get('/refresh-token', (req, res) => {
     const refresh_token = jwt.sign(
         { name, email, id, token },
         process.env.JWT_USER_TOKEN_HASH,
-        { expiresIn: process.env.JTW_USER_REFRESH_TOKEN_EXPIRATION },
+        { expiresIn: process.env.JWT_USER_REFRESH_TOKEN_EXPIRATION },
     );
 
     res.status(200).json({
@@ -46,6 +46,10 @@ router.get('/refresh-token', (req, res) => {
 });
 
 router.get('/verify-token', (req, res) => {
+    res.status(200).json({ message: 'OK' });
+});
+
+router.get('/test', (req, res) => {
     res.status(200).json({ message: 'OK' });
 });
 
