@@ -53,15 +53,15 @@ router.get('/verify-token', (req, res) => {
 
 router.get('/user', userControler.listOne);
 
-router.get('/category', categoryControler.listOne);
+router.get('/category/:user/:name', categoryControler.listOne);
 
-router.get('/categories', categoryControler.listAll);
+router.get('/category/:user', categoryControler.listAll);
 
-router.post('/new-category', categoryControler.insert);
+router.post('/category', categoryControler.insert);
 
-router.post('/edit-category', categoryControler.editOne);
+router.put('/category', categoryControler.editOne);
 
-router.post('/delete-category', categoryControler.deleteOne);
+router.delete('/category', categoryControler.deleteOne);
 
 
 module.exports = router;

@@ -3,9 +3,10 @@ const Category = require('../../models/Category');
 class CategoryControler {
   listAll = async (req, res) => {
     try {
-      if (!req.body) res.status(400).json({ message: 'ID de usuário obrigatório obrigatório.'});
+      console.log(req.params.user)
+      if (!req.params.user) res.status(400).json({ message: 'ID de usuário obrigatório obrigatório.'});
 
-      const categories = await Category.findAll({ user: req.body.user });
+      const categories = await Category.find({ user: req.params.user });
       
       if (!categories) res.status(404).json({ message: 'Categorias não encontrado'});
 
@@ -18,11 +19,11 @@ class CategoryControler {
 
   listOne = async (req, res) => {
     try {
-      if (!req.body) res.status(400).json({ message: 'Nome da categoria não informado'});
+      if (!req.params.user || !req.params.name) res.status(400).json({ message: 'Nome da categoria ou usuário não informado'});
 
-      const category = await Category.findAll({ user: req.body.name });
+      const category = await Category.findOne({ name: req.params.name, user: req.params.user });
       
-      if (!categories) res.status(404).json({ message: 'Categoria não encontrado'});
+      if (!category) res.status(404).json({ message: 'Categoria não encontrado'});
 
       return res.status(200).json(category);
     } catch (err) {
@@ -33,11 +34,12 @@ class CategoryControler {
 
   insert = async (req, res) => {
     try {
+      console.log(req.body)
       if (!req.body) res.status(400).json({ message: 'Fornecer Nome para categoria e ID de usuário'});
 
       const category = await Category.create({ name: req.body.name, user: req.body.user });
       
-      return res.status(200).json(categories);
+      return res.status(200).json(category);
     } catch (err) {
       console.log(err);
       return res.status(500).json({ message: 'Erro interno' });
@@ -52,7 +54,7 @@ class CategoryControler {
 
       if (!category) res.status(404).json({ message: 'Categoria não encontrado'});
     
-      return res.status(200).json(category);
+      return res.status(200).json("Categoria editada com sucesso");
     } catch (err) {
       console.log(err);
       return res.status(500).json({ message: 'Erro interno' });
