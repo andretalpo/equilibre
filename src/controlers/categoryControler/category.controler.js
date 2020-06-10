@@ -69,7 +69,7 @@ class CategoryControler {
 
       if (!category) res.status(404).json({ message: 'Categoria não encontrado'});
     
-      return res.status(200).json(category);
+      return res.status(200).json("Categoria deletada com sucesso");
     } catch (err) {
       console.log(err);
       return res.status(500).json({ message: 'Erro interno' });
