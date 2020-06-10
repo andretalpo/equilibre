@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const jwt = require('jsonwebtoken');
+const userControler = require('../../controlers/userControler/user.controler');
 
 const router = Router();
 
@@ -49,8 +50,11 @@ router.get('/verify-token', (req, res) => {
     res.status(200).json({ message: 'OK' });
 });
 
-router.get('/test', (req, res) => {
-    res.status(200).json({ message: 'OK' });
-});
+router.get('/user', userControler.listOne);
+
+//TODO remover
+// router.get('/test', (req, res) => {
+//     res.status(200).json({ message: 'OK' });
+// });
 
 module.exports = router;
