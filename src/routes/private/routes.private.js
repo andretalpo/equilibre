@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const jwt = require('jsonwebtoken');
 const userControler = require('../../controlers/userControler/user.controler');
+const categoryControler = require('../../controlers/categoryControler/category.controler');
 
 const router = Router();
 
@@ -52,9 +53,15 @@ router.get('/verify-token', (req, res) => {
 
 router.get('/user', userControler.listOne);
 
-//TODO remover
-// router.get('/test', (req, res) => {
-//     res.status(200).json({ message: 'OK' });
-// });
+router.get('/category', categoryControler.listOne);
+
+router.get('/categories', categoryControler.listAll);
+
+router.post('/new-category', categoryControler.insert);
+
+router.post('/edit-category', categoryControler.editOne);
+
+router.post('/delete-category', categoryControler.deleteOne);
+
 
 module.exports = router;
