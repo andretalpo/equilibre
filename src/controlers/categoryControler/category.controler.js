@@ -50,7 +50,7 @@ class CategoryControler {
     try {
       if (!req.body) res.status(400).json({ message: 'Fornecer Nome para categoria e ID de usuário'});
 
-      const category = await Category.findOneAndUpdate({ name: req.body.currentName, user: req.body.user }, { name: req.body.newName });
+      const category = await Category.findOneAndUpdate({ _id: req.body._id }, { name: req.body.newName });
 
       if (!category) res.status(404).json({ message: 'Categoria não encontrado'});
     
@@ -65,7 +65,7 @@ class CategoryControler {
     try {
       if (!req.body) res.status(400).json({ message: 'Fornecer Nome para categoria e ID de usuário'});
 
-      const category = await Category.findOneAndRemove({ name: req.body.name, user: req.body.user });
+      const category = await Category.findOneAndRemove({ _id: req.body._id });
 
       if (!category) res.status(404).json({ message: 'Categoria não encontrado'});
     
