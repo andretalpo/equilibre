@@ -65,5 +65,4 @@ router.post('/category', categoryControler.insert);
 router.put('/category', categoryControler.editOne);
 router.delete('/category', categoryControler.deleteOne);
 
-
 module.exports = router;
