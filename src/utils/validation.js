@@ -42,8 +42,27 @@ const password = joi.string()
   .max(100)
   .options(validation('Senha', 5, 100));
 
+const provider = joi.string()
+  .required()
+  .min(3)
+  .max(100)
+  .regex(nameRegex)
+  .options(validation('Bandeira', 3, 100, 'Somente letras maiúsculas ou minúsculas'));
+
+const expiration_date = joi.string()
+  .min(7)
+  .max(7)
+  .options(validation('Data de expiração', 7, 7));
+
+const id = joi.string()
+  .required()
+  .options(validation('Id'));
+
 module.exports = {
   name,
   email,
   password,
+  provider,
+  expiration_date,
+  id,
 }
