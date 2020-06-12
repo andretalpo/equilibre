@@ -1,6 +1,6 @@
 const joi = require('joi');
 
-const nameRegex = /^[a-zA-z]/
+const dateRegex = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/
 
 const validation = (field, min, max, mask) => ({
   language: {
@@ -20,6 +20,7 @@ const validation = (field, min, max, mask) => ({
     },
     number: {
       base: `${field}: Campo do tipo numérico`,
+      min: `${field}: Campo no mínimo ${min}`,
     },
   },
 });
@@ -28,8 +29,7 @@ const name = joi.string()
   .required()
   .min(3)
   .max(100)
-  .regex(nameRegex)
-  .options(validation('Nome', 3, 100, 'Somente letras maiúsculas ou minúsculas'));
+  .options(validation('Nome', 3, 100));
 
 const email = joi.string()
   .required()
@@ -46,8 +46,12 @@ const provider = joi.string()
   .required()
   .min(3)
   .max(100)
-  .regex(nameRegex)
-  .options(validation('Bandeira', 3, 100, 'Somente letras maiúsculas ou minúsculas'));
+  .options(validation('Bandeira', 3, 100));
+
+const stablishment = joi.string()
+  .min(3)
+  .max(100)
+  .options(validation('Estabelecimento', 3, 100));
 
 const expiration_date = joi.string()
   .min(7)
@@ -56,13 +60,53 @@ const expiration_date = joi.string()
 
 const id = joi.string()
   .required()
-  .options(validation('Id'));
+  .min(24)
+  .max(24)
+  .options(validation('Id', 24, 24));
+
+const categoryId = joi.string()
+  .required()
+  .required()
+  .min(24)
+  .max(24)
+  .options(validation('Id Categoria', 24, 24));
+
+const cardId = joi.string()
+  .required()
+  .required()
+  .min(24)
+  .max(24)
+  .options(validation('Id Cartão', 24, 24));
+
+const userId = joi.string()
+  .required()
+  .min(24)
+  .max(24)
+  .options(validation('Id Usuário', 24, 24));
+
+const date = joi.string()
+  .required()
+  .min(10)
+  .max(10)
+  .regex(dateRegex)
+  .options(validation('Data', 10, 10, 'yyyy-MM-dd'))
+
+const value = joi.number()
+  .required()
+  .min(0)
+  .options(validation('Valor', 0))
 
 module.exports = {
   name,
   email,
   password,
   provider,
+  stablishment,
   expiration_date,
   id,
+  cardId,
+  categoryId,
+  userId,
+  date,
+  value,
 }
