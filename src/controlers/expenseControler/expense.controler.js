@@ -14,7 +14,8 @@ class ExpenseControler {
                     $gte: req.query.startDate,
                     $lte: req.query.endDate
                 }
-            });
+
+            }).sort({ 'date': -1 });
 
             return res.status(200).json({ expenses });
         } catch (error) {
