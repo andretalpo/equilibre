@@ -1,6 +1,7 @@
 const Expense = require('../../models/Expense');
 const paramsSchema = require('../../utils/validation');
 const joi = require('joi');
+const Card = require('../../models/Card');
 
 class ExpenseControler {
     listAll = async (req, res) => {
@@ -69,6 +70,42 @@ class ExpenseControler {
             return res.status(500).json({ message: 'Falha ao remover compra.' });
         }
     };
+
+    getTotalValue = async (req, res) => {
+        try {
+            const { startDate, endDate, userId, cardId } = req.query;
+
+            let cards = [];
+            if (!cardId) {
+                cards = await Card.find({ user: userId }, { _id: 1 });
+            } else {
+                cards.push({ _id: cardId })
+            }
+
+            const results = await Promise.all(cards.map(async card => {
+                const expenses = await Expense.find(
+                    {
+                        card: card._id,
+                        date: {
+                            $gte: startDate,
+                            $lte: endDate
+                        }
+                    },
+                    {
+                        value: 1
+                    }
+                );
+
+                return expenses.reduce((previous, current) => previous + current.value, 0);
+            }));
+
+            const result = results.reduce((previous, current) => previous + current, 0);
+            return res.status(200).json({ result: result });
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({ message: 'Falha ao consultar valores.' });
+        }
+    }
 
     validateDate = (startDate, endDate) => {
         const { date } = paramsSchema;

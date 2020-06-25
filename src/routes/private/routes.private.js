@@ -71,4 +71,6 @@ router.get('/expense/:card', expenseControler.listAll);
 router.delete('/expense/:id', expenseControler.deleteOne);
 router.put('/expense/:id', expenseControler.editOne);
 
+router.get('/expense', expenseControler.getTotalValue);
+
 module.exports = router;
