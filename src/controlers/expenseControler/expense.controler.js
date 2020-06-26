@@ -2,6 +2,7 @@ const Expense = require('../../models/Expense');
 const paramsSchema = require('../../utils/validation');
 const joi = require('joi');
 const Card = require('../../models/Card');
+const Category = require('../../models/Category');
 
 class ExpenseControler {
     listAll = async (req, res) => {
@@ -101,6 +102,95 @@ class ExpenseControler {
 
             const result = results.reduce((previous, current) => previous + current, 0);
             return res.status(200).json({ result: result });
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({ message: 'Falha ao consultar valores.' });
+        }
+    }
+
+    getValueByCategory = async (req, res) => {
+        try {
+            const { startDate, endDate, userId, cardId } = req.query;
+
+            const categories = await Category.find({ user: userId });
+            const results = await Promise.all(
+                categories.map(async category => {
+                    let expenses = [];
+                    if (cardId) {
+                        expenses = await Expense.find(
+                            {
+                                card: cardId ? cardId : '',
+                                category: category._id,
+                                date: {
+                                    $gte: startDate,
+                                    $lte: endDate
+                                }
+                            },
+                            {
+                                value: 1
+                            }
+                        );
+                    } else {
+                        expenses = await Expense.find(
+                            {
+                                category: category._id,
+                                date: {
+                                    $gte: startDate,
+                                    $lte: endDate
+                                }
+                            },
+                            {
+                                value: 1
+                            }
+                        );
+                    }
+
+                    const valueByCategory = { id: category._id, name: category.name }
+                    valueByCategory.value = expenses.reduce((previous, current) => previous + current.value, 0);
+                    return valueByCategory;
+                })
+            );
+
+            return res.status(200).json({ results: results });
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({ message: 'Falha ao consultar valores.' });
+        }
+    }
+
+
+    getTopTenExpenses = async (req, res) => {
+        try {
+            const { startDate, endDate, userId, cardId } = req.query;
+
+            let results = [];
+            if (cardId) {
+                results = await Expense.find(
+                    {
+                        card: cardId ? cardId : '',
+                        date: {
+                            $gte: startDate,
+                            $lte: endDate
+                        }
+                    }
+                ).sort({ value: -1 }).limit(10);
+            } else {
+                const cards = await Card.find({ user: userId }, { _id: 1 });
+                results = await Expense.find(
+                    {
+                        card: {
+                            $in: cards,
+                        },
+                        date: {
+                            $gte: startDate,
+                            $lte: endDate
+                        }
+                    }
+                ).sort({ value: -1 }).limit(10);
+                console.log(results)
+            }
+
+            return res.status(200).json({ results: results });
         } catch (error) {
             console.log(error);
             return res.status(500).json({ message: 'Falha ao consultar valores.' });
