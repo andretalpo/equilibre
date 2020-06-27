@@ -3,7 +3,6 @@ const Category = require('../../models/Category');
 class CategoryControler {
   listAll = async (req, res) => {
     try {
-      console.log(req.params.user)
       if (!req.params.user) res.status(400).json({ message: 'ID de usuário obrigatório obrigatório.'});
 
       const categories = await Category.find({ user: req.params.user });
@@ -34,7 +33,6 @@ class CategoryControler {
 
   insert = async (req, res) => {
     try {
-      console.log(req.body)
       if (!req.body) res.status(400).json({ message: 'Fornecer Nome para categoria e ID de usuário'});
 
       const category = await Category.create({ name: req.body.name, user: req.body.user });

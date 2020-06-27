@@ -151,6 +151,8 @@ class ExpenseControler {
                 })
             );
 
+            results.sort((r1, r2) => r2.value - r1.value);
+
             return res.status(200).json({ results: results });
         } catch (error) {
             console.log(error);
@@ -187,7 +189,6 @@ class ExpenseControler {
                         }
                     }
                 ).sort({ value: -1 }).limit(10);
-                console.log(results)
             }
 
             return res.status(200).json({ results: results });

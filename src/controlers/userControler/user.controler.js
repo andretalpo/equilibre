@@ -7,7 +7,6 @@ class UserControler {
 
   listOne = async (req, res) => {
     try {
-      console.log('chegou na funcao correta')
       if (!req.query.email) res.status(400).json({ message: 'E-mail obrigatório.'});
 
       const user = await User.findOne({ email: req.query.email });
