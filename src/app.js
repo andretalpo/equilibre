@@ -17,7 +17,7 @@ class App {
     this.app.use(express.static(__dirname + '/public'));
     this.app.use(express.json());
     this.app.use(cors({
-      origin: ['http://localhost:3000', 'urlRemota'],
+      origin: ['http://localhost:3000', 'https://equilibre-app.herokuapp.com/'],
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     }))
   };
