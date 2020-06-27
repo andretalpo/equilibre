@@ -7,6 +7,6 @@ const CategorySchema = new Schema({
   user: { type: mongoose.Types.ObjectId, ref: 'user', required: true },
 });
 
-const Category = mongoose.model('card', CategorySchema);
+const Category = mongoose.model('category', CategorySchema);
 
 module.exports = Category;
