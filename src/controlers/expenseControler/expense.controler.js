@@ -198,6 +198,19 @@ class ExpenseControler {
         }
     }
 
+    listExpensesByCategory = async (categoryId) => {
+
+        const expenses = await Expense.find({ category: categoryId});
+        return expenses;
+    }
+
+
+    listExpensesByCard = async (cardId) => {
+
+        const expenses = await Expense.find({ card: cardId});
+        return expenses;
+}
+
     validateDate = (startDate, endDate) => {
         const { date } = paramsSchema;
 
@@ -246,6 +259,7 @@ class ExpenseControler {
 
         return [];
     }
+
 }
 
 module.exports = new ExpenseControler();
