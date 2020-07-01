@@ -1,4 +1,5 @@
 const Category = require('../../models/Category');
+const ExpenseControler = require('../expenseControler/expense.controler');
 
 class CategoryControler {
   listAll = async (req, res) => {
@@ -63,8 +64,14 @@ class CategoryControler {
     try {
       if (!req.body) res.status(400).json({ message: 'Fornecer Nome para categoria e ID de usuário'});
 
-      const category = await Category.findOneAndRemove({ _id: req.body._id });
+      const expenses = await ExpenseControler.listExpensesByCategory(req.body._id);
+            
+      if(expenses.length > 0){
+        return res.status(400).json({ message: 'Categoria a ser deletada já possue compras'});
+      }
 
+      const category = await Category.findOneAndRemove({ _id: req.body._id });
+      
       if (!category) res.status(404).json({ message: 'Categoria não encontrado'});
     
       return res.status(200).json("Categoria deletada com sucesso");

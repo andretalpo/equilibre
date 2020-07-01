@@ -1,6 +1,7 @@
 const Card = require('../../models/Card');
 const paramsSchema = require('../../utils/validation');
 const joi = require('joi');
+const ExpenseControler = require('../expenseControler/expense.controler');
 
 class CardControler {
     listAll = async (req, res) => {
@@ -53,6 +54,12 @@ class CardControler {
     deleteOne = async (req, res) => {
         try {
             if (!req.params.id) return res.status(400).json({ message: 'Id obrigatório.' });
+
+            const expenses = await ExpenseControler.listExpensesByCard(req.params.id);
+            
+            if(expenses.length > 0){
+                return res.status(400).json({ message: 'Cartão a ser deletado já possue compras'});
+              }
 
             const found = await Card.findOneAndRemove({ _id: req.params.id });
             if (!found) return res.status(400).json({ message: 'Cartão não encontrado.' });
