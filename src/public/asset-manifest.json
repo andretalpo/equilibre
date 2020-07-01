@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/static/css/main.1e104fb0.chunk.css",
+    "main.js": "/static/js/main.f5bf577f.chunk.js",
+    "main.js.map": "/static/js/main.f5bf577f.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.468ab376.js",
+    "runtime-main.js.map": "/static/js/runtime-main.468ab376.js.map",
+    "static/js/2.456bdf7e.chunk.js": "/static/js/2.456bdf7e.chunk.js",
+    "static/js/2.456bdf7e.chunk.js.map": "/static/js/2.456bdf7e.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.ec9bad8ee4dd430c9219d184666daf2c.js": "/precache-manifest.ec9bad8ee4dd430c9219d184666daf2c.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.1e104fb0.chunk.css.map": "/static/css/main.1e104fb0.chunk.css.map",
+    "static/js/2.456bdf7e.chunk.js.LICENSE.txt": "/static/js/2.456bdf7e.chunk.js.LICENSE.txt",
+    "static/media/app-store-google.png": "/static/media/app-store-google.1a38e0c0.png",
+    "static/media/AuthTemplate.css": "/static/media/authPage.ebf35939.jpg",
+    "static/media/controle.jpeg": "/static/media/controle.78f11b3e.jpeg",
+    "static/media/grid1.jpg": "/static/media/grid1.e7b0a951.jpg",
+    "static/media/grid2.jpg": "/static/media/grid2.99c1b78b.jpg",
+    "static/media/grid3.jpg": "/static/media/grid3.c1f12376.jpg",
+    "static/media/grid4.jpg": "/static/media/grid4.ae8c03b7.jpg",
+    "static/media/LandingPage.css": "/static/media/landing-page2.6d73fdb5.jpeg",
+    "static/media/logo8.png": "/static/media/logo8.edd5318d.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.468ab376.js",
+    "static/js/2.456bdf7e.chunk.js",
+    "static/css/main.1e104fb0.chunk.css",
+    "static/js/main.f5bf577f.chunk.js"
+  ]
+}
