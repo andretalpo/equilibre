@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/equilibre', { useNewUrlParser: true })
+mongoose.connect('mongodb://192.168.0.179/equilibre', { useNewUrlParser: true })
 .then(() => 'connected to database');
 
 //Alimentar
